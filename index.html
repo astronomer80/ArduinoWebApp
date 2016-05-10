@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<meta charset="UTF-8"> 
+	<meta http-equiv="Cache-control" content="no-cache" />
+	<meta name="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+	<title>Arduino Wi-Fi Board Control Panel</title>		
+	<link rel="stylesheet" type="text/css" href="style.css">	
+	<link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+	<script src="jquery.min.js"></script>
+	<script src="document_ready.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+Arduino Board Address:
+<input title="Set here the address of your board if linino.local doesn't work on your network" id=arduino_address size=15 type=text value=linino.local onchange="setUrlVars('arduino_address', this.value);" />
+<div class=br ></div>
+Model: <select id=arduino_board title="Select here your board to handle properly your request to the board" onchange="setUrlVars('arduino_board', this.value);"> 
+	<option value="unowifi">Uno WiFi</option>
+	<option value="yun">Yùn</option>
+	<option value="tian">Tian</option>
+       </select>
+<br/>
+	<div class=page_content align=center>
+	    <img id="marchio" class="hiddenoniframe" src="imgpsh_fullsize.jpg">
+	    <h2 class='hiddenoniframe'>Arduino Wi-Fi Board Control Panel</h2>
+	    <div class='showoniframe'>&nbsp;</div>
+	    <span class='link' onclick="showhide('instructions');">SHOW INSTRUCTIONS</span>
+		<span class='link' onclick="reset_data();">RESET</span>
+		<span class='link' id=configpanelbutton onclick="configgpio_unowifi();">CONFIG PANEL</span>
+		<span class='link' id=controlpanelbutton onclick="showgpio();">CONTROL PANEL</span>
+
+	    <div id='instructions' class='instructions'>
+Set the address of your board in the address text box, than yun need to upload the sketch "ciaoBraccio" on your board and the Ciao library on your Yun or Tian. At this link you can find how to install the Ciao library: <a href='http://labs.arduino.org/Ciao+setup', target="_blank">Ciao Setup</a>. At the first run you have to set the credentials for your board (for Yun the default is user:<i>root</i>, password:<i>doghunter</i>). 
+You can save this page (CTRL+S) on your PC to work without an internet access with your PC connected to the AP provided by your Arduino board. In alternative you can load this page and than connect your PC to the Yun.<br/> 
+</div>
+
+<br/>
+		
+		<div id=gpio class='commands'> </div> 
+		
+		<!-- 
+		Only for test
+				
+		<button onclick="sendCommand('LEDON');">ON</button>
+		<button onclick="sendCommand('LEDOFF');">OFF</button>
+		-->		
+		
+		
+	</div>
+</body>
+

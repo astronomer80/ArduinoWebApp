@@ -1,0 +1,49 @@
+
+@font-face {
+  font-family: 'TypSansMono Medium';
+  src: url('http://www.arduino.org/fonts/TypSansMono-Medium.eot'); /* per IE 5-8 */
+  src: local('☺'), /* direttiva local per IE */
+  url('http://www.arduino.org/fonts/TypSansMono-Medium.woff') format('woff'),    /* Firefox 3.6+, Chrome 5.0+, IE 9.0+ */
+  url('http://www.arduino.org/fonts/TypSansMono-Medium.ttf') format('truetype'); /* Opera, Safari */
+}
+
+@font-face {
+  font-family: 'TypSansMono Regular';
+  src: url('http://www.arduino.org/fonts/TypSansMono-Regular.eot'); /* per IE 5-8 */
+  src: local('☺'), /* direttiva local per IE */
+  url('http://www.arduino.org/fonts/TypSansMono-Regular.woff') format('woff'),    /* Firefox 3.6+, Chrome 5.0+, IE 9.0+ */
+  url('http://www.arduino.org/fonts/TypSansMono-Regular.ttf') format('truetype'); /* Opera, Safari */
+}
+
+@font-face {
+	font-family: 'Conv_TypSansMono-Light';
+	src: url('http://www.arduino.org/fonts/TypSansMono-Light.eot');
+	src: local('☺'), url('http://www.arduino.org/fonts/TypSansMono-Light.woff') format('woff'), 
+	url('http://www.arduino.org/fonts/TypSansMono-Light.ttf') format('truetype'), 
+	url('http://www.arduino.org/fonts/TypSansMono-Light.svg') format('svg');
+}
+
+
+@font-face {
+  font-family: 'TyponineSans Medium';
+  src: url('http://www.arduino.org/fonts/TyponineSans-Medium.eot'); /* per IE 5-8 */
+  src: local('☺'), /* direttiva local per IE */
+  url('http://www.arduino.org/fonts/TyponineSans-Medium.woff') format('woff'),    /* Firefox 3.6+, Chrome 5.0+, IE 9.0+ */
+  url('http://www.arduino.org/fonts/TyponineSans-Medium.ttf') format('truetype'); /* Opera, Safari */
+}
+
+@font-face {
+  font-family: 'TyponineSans Regular';
+  src: url('http://www.arduino.org/fonts/TyponineSans-Regular.eot'); /* per IE 5-8 */
+  src: local('☺'), /* direttiva local per IE */
+  url('http://www.arduino.org/fonts/TyponineSans-Regular.woff') format('woff'),    /* Firefox 3.6+, Chrome 5.0+, IE 9.0+ */
+  url('http://www.arduino.org/fonts/TyponineSans-Regular.ttf') format('truetype'); /* Opera, Safari */
+}
+
+@font-face {
+  font-family: 'TyponineSans Light';
+  src: url('http://www.arduino.org/fonts/TyponineSans-Light.eot'); /* per IE 5-8 */
+  src: local('☺'), /* direttiva local per IE */
+  url('http://www.arduino.org/fonts/TyponineSans-Light.woff') format('woff'),    /* Firefox 3.6+, Chrome 5.0+, IE 9.0+ */
+  url('http://www.arduino.org/fonts/TyponineSans-Light.ttf') format('truetype'); /* Opera, Safari */
+}

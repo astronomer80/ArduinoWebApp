@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript">
+	
+	function getjson_(){
+		$.getJSON("file:///C:/Users/Angelo/Desktop/unowifi/json.json", function(json) {
+			console.log(json); // this will show the info it in firebug console
+		});
+		
+	}
+	
+	function save(){
+		var obj = {
+			name: 'Dhayalan',
+			score: 100
+		};
+
+		localStorage.setItem('gameStorage', JSON.stringify(obj));
+		
+		var obj = JSON.parse(localStorage.getItem('gameStorage'));
+		
+		var myWindow = window.open("conf.json", "_blank");
+		
+		//myWindow.document.write("<html><head><title>Window Title</title>");
+		//myWindow.document.write('<script>window.onload = self.focus;document.title = Mytitle;');
+		myWindow.document.write(obj.name + '</body>');
+		myWindow.document.close();
+		
+		
+		console.log(obj);
+	}
+	
+	</script>
+</head>
+<body>
+<button onclick="sendData('ledon');">ON</button>
+<button onclick="sendData('ledoff');">OFF</button>
+
+<script type="text/javascript">
+save();
+</script>
+
+</body>
+</html>
