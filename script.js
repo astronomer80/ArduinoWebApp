@@ -24,26 +24,26 @@ function showgpio(){
 	
 		if(typeof pin_name !== "undefined" && pin_type!="hide"){
 			out+="<tr class=gpio>";
-			out+="<td ><span class=label>"+pin_name+"</span></td>";
+			out+="<td class=label><span class=label>"+pin_name+"</span></td>";
 			if(pin_type=="pwm"){
 				//out+="<table><tr>";
-				out+="<td class=slider><input class=\"pwmvalue\" id=D"+i+" type=\"range\" min=\"0\" max=\"1023\" value=0></td>";
-				out+="<td class=value><output type=text size=2 id='D"+i+"-output'>0</output></td>";
+				out+="<td class=slider><input class=\"pwmvalue\" id=D"+i+"_command type=\"range\" min=\"0\" max=\"1023\" value=0></td>";
+				out+="<td class=value><output type=text size=4 id='D"+i+"-output'>0</output></td>";
 				//out+="</tr></table>";
 			}else if(pin_type=="digitalout"){
 				//out+="<table style='display:block'><tr>";
 				//out+="<td class=commandtd><button onclick='sendCommand(\"digital/"+i+"/1\");' id=D"+i+" class='command'>ON</button></td>";		
 				//out+="<td class=commandtd><button onclick='sendCommand(\"digital/"+i+"/0\");' id=D"+i+" class='command'>OFF</button></td>";		
 				out+="<td class=commandtd_show>";
-				out+="<button onclick='sendCommand(\"digital/"+i+"/1\");' id=D"+i+" class='command'>ON</button> ";
-				out+="<button onclick='sendCommand(\"digital/"+i+"/0\");' id=D"+i+" class='command'>OFF</button>";
+				out+="<button onclick='sendCommand(\"digital/"+i+"/1\");' id=D"+i+"_command class='command'>ON</button> ";
+				out+="<button onclick='sendCommand(\"digital/"+i+"/0\");' id=D"+i+"_command class='command'>OFF</button>";
 				out+="</td>";
 			
 				//out+="</tr></table>";
 			}else if(pin_type=="digitalread"){
-				out+="<td class=value><output type=text size=2 id=\"A"+i+"\">OFF</output></td>";							
+				out+="<td class=value><output type=text size=4 id=\"A"+i+"_command\">OFF</output></td>";							
 			}else if(pin_type=="analog"){
-				out+="<td class=value><output type=text size=2 id=\"A"+i+"\">0</output></td>";				
+				out+="<td class=value><output type=text size=4 id=\"A"+i+"_command\">0</output></td>";				
 			}
 		}
 		
@@ -51,7 +51,43 @@ function showgpio(){
 	});
 	
 	out+="</table>";
-	$('#gpio').html(out);		
+	$('#gpio').html(out);	
+
+	handle_commands();
+}
+
+function handle_commands(){
+	//Desktop event
+	$('.pwmvalue').mousemove(function(){
+            var value = $(this).val();
+            var id = $(this).attr('id');
+			id=id.replace("_command", "");
+            $('#'+id+'-output').text(value);
+        });
+
+	$('.pwmvalue').mouseup(function(){
+            var id= $(this).attr('id');
+	    var command=id+'/value:' + this.value;
+	    sendCommand(command);
+        });
+
+	//Touch event
+	$('.pwmvalue').bind('touchmove',function(e){
+	    var value = $(this).val();
+            var id = $(this).attr('id');
+            $('#'+id+'-output').text(value);
+	});
+
+	$('.pwmvalue').bind('touchend',function(e){
+	    var id= $(this).attr('id');
+	    var command=id+'/value:' + this.value;
+	    sendCommand(command);
+	});
+
+	$('.command').click(function(){
+        var command= $(this).attr('id');	    
+	    sendCommand(command);
+        });
 	
 }
 
@@ -72,7 +108,9 @@ function gpiotype(id, analog, pwm){
 	return out;
 }
 
-
+/**
+Create the configuration panel
+*/
 function configgpio_unowifi(){
 	$('#controlpanelbutton').show();
 	$('#configpanelbutton').hide();
@@ -84,7 +122,7 @@ function configgpio_unowifi(){
 	for(i=0;i<=13;i++){
 		out+="<tr class=gpio>";
 		out+="<td ><span class=label>Pin name for D"+i+"</span></td>";
-		out+="<td ><input class=gpio_name type=text id=D"+i+" value=D"+i+" ></td>";
+		out+="<td ><input class=gpio_name type=text id=D"+i+"_config value=D"+i+" ></td>";
 		out+="<td ><span class=\'label\'>Pin function</span></td>";
 		if(i==3 || i==5 || i==6 || i==9 || i==10 || i==11)
 			out+="<td class=commandtd>" + gpiotype("D"+i, false, true) + "</td>";		
@@ -97,7 +135,7 @@ function configgpio_unowifi(){
 	for(i=0;i<=5;i++){
 		out+="<tr class=gpio>";
 		out+="<td ><span class=label>Pin name for A"+i+"</span></td>";
-		out+="<td ><input class=gpio_name type=text id=A"+i+" value=A"+i+" /></td>";
+		out+="<td ><input class=gpio_name type=text id=A"+i+"_config value=A"+i+" /></td>";
 		out+="<td ><span class=label>Pin function</span></td>";
 		out+="<td class=commandtd>" + gpiotype("A"+i, true, false) + "</td>";				
 		out+="</tr>";		
@@ -108,6 +146,13 @@ function configgpio_unowifi(){
 	
 	//Get data from localStorage
 	get_config_panel();
+	
+	$('.gpio_name').change(function(){
+		store_config_panel();
+	});
+	$('.gpio_type').change(function(){
+		store_config_panel();	
+	});
 }
 /**
 Check if the page is on an iFrame 

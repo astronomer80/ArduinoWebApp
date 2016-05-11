@@ -15,6 +15,7 @@ $(document).ready(function() {
 		$("#arduino_board").val(arduino_board);
 	}
 
+	//Manage how panel show
 	if(localStorage.default_panel=="showgpio")
 		showgpio();
 	else
@@ -50,22 +51,8 @@ $(document).ready(function() {
         var command= $(this).attr('id');	    
 	    sendCommand(command);
         });
-		
 	
-	/*
-	$('.gpio_name').change(function(){
-        var name= $(this).attr('name');	    
-		var value= $(this).val();	    
-		alert(value);
-	    //sendCommand(command);
-        });	
-	*/
-	$('.gpio_name').change(function(){
-		store_config_panel();
-	});
-	$('.gpio_type').change(function(){
-		store_config_panel();	
-	});
+	document_loaded();
 	
 	$('.mobilespacing').hide();
 	
@@ -88,7 +75,8 @@ function store_config_panel(){
 	var data=""
 	console.log("store_config_panel");
 	$('.gpio_name').each(function(index){        
-		var name= $(this).attr('id');	    		
+		var name= $(this).attr('id');	    
+		name=name.replace("_config", "");
 		var value= $(this).val();	    
 		var type = $('#'+name + '_type option:selected').text();
 		data+=name + ';'+value+';'+type+'\n';

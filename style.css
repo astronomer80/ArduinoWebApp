@@ -122,21 +122,21 @@ td{
   text-align:left;
 }
 table.showgpio_table{
-	width:100%;
+	width:80%;
 }
 td.slider{
-  width:80%;
+  width:60%;
 }
 td.commandtd{
   width:40%;
   padding-left: 5px;
 }
 td.commandtd_show{
-  width:40%;
+  width:70%;
   padding-left: 5px;
 }
-td.value1{
-  width:20px;
+td.value{
+  width:40px;
 }
 tr.gpio{
   height:20px;
@@ -156,7 +156,9 @@ span.label {
 	/*color: #2D969D;*/
 	margin: 0px;
 	text-align: left;
-	
+}
+table.td.label{
+	width=20%;
 }
 h2 {
 	font-family:'TypSansMono Medium';
