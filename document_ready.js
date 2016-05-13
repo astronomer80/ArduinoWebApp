@@ -93,14 +93,30 @@ Get the configuration panel from the local storage. The last configuration store
 */
 function get_config_panel(){
 	//console.log(localStorage.gpio_config);	
+	if (localStorage.getItem("gpio_config") === null)
+		create_first_configuration();
+
 	var rows = localStorage.gpio_config.split("\n");
 	$.each(rows, function( index, value ) {
 		var data = value.split(";");		
 		//console.log(data[1]);		
-		$('#'+data[0]).val(data[1]);
+		$('#'+data[0]+"_config").val(data[1]);
 		$('#'+data[0]+'_type').val(data[2]);
-	});
+	});	
+}
+
+function create_first_configuration(){
+	var data="";
+	//Digital pins	
+	for(i=0;i<=13;i++){
+		data+="D"+i+";D"+i+";digitalout\n";
+	}
 	
+	//For each Analog PIN
+	for(i=0;i<=5;i++){
+		data+="A"+i+";A"+i+";digitalout\n";	
+	}
+	localStorage.setItem("gpio_config", data);
 }
 
 function document_loaded(){

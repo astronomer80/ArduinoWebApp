@@ -312,7 +312,9 @@ function setUrlVars(variable, value) {
 }
 
 function reset_data(){
-	localStorage.setItem("gpio_config", "");
-	window.open(window.location.href, '_self');
+	if(confirm("Are you sure?")){
+		create_first_configuration();
+		window.open(window.location.href, '_self');	
+	}
 }
 
