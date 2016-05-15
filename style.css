@@ -31,7 +31,7 @@ text-align: left;
 
 
 .link:hover, .link:active{
-opacity: 0.6;
+	opacity: 0.6;	
 }
 
 img{
@@ -64,7 +64,7 @@ input[type="range"]{
 	width:250px;
 	margin-top:5px;
 	height: 20px;
-	display: block;
+	
 }
 
 button{

@@ -9,6 +9,7 @@ Show the list of the gpio in the command panel
 function showgpio(){
 	//Manage buttons
 	$('#controlpanelbutton').hide();
+	$('#saveconfigbutton').hide();
 	$('#configpanelbutton').show();
 	localStorage.setItem("default_panel", "showgpio");
 
@@ -113,6 +114,7 @@ Create the configuration panel
 */
 function configgpio_unowifi(){
 	$('#controlpanelbutton').show();
+	$('#saveconfigbutton').show();
 	$('#configpanelbutton').hide();
 	localStorage.setItem("default_panel", "configgpio_unowifi");
 	
@@ -145,13 +147,13 @@ function configgpio_unowifi(){
 	$('#gpio').html(out);		
 	
 	//Get data from localStorage
-	get_config_panel();
+	get_config_panel("default");
 	
 	$('.gpio_name').change(function(){
-		store_config_panel();
+		store_config_panel("default");
 	});
 	$('.gpio_type').change(function(){
-		store_config_panel();	
+		store_config_panel("default");	
 	});
 }
 /**
@@ -318,3 +320,15 @@ function reset_data(){
 	}
 }
 
+function save_config(){
+	var config_name=prompt("Enter the name for this configuration", "");
+	if(config_name!=null){
+		if(localStorage.gpio_config_list==="undefined")
+			localStorage.setItem("gpio_config_list","default");
+		localStorage.gpio_config_list+=";" + config_name;						
+		$('#config_name')
+         .append('<option value='+config_name+'>'+config_name+'</option>').attr("selected", "selected");;                    
+					
+		store_config_panel(config_name);
+	}
+}

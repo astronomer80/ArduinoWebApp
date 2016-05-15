@@ -65,15 +65,20 @@ $(document).ready(function() {
 		$(".hiddenoniframe").show();
 		$('.showoniframe').hide();
 	}
+	
+	get_stored_configs();
+	
 });
 
 
 /**
 Store the configuration panel on the local storage
 */
-function store_config_panel(){
+function store_config_panel(config_name){
+	//if(config_name=="")
+	//	config_name=getUrlVars()["config_name"];
 	var data=""
-	console.log("store_config_panel");
+	console.log("store_config_panel "+config_name);
 	$('.gpio_name').each(function(index){        
 		var name= $(this).attr('id');	    
 		name=name.replace("_config", "");
@@ -83,17 +88,20 @@ function store_config_panel(){
 		
 		//sendCommand(command);
 		});	
-	localStorage.setItem("gpio_config", data);
-	console.log(localStorage.gpio_config);
-	
+	localStorage.setItem("gpio_config:"+config_name, data);
+	console.log(localStorage.getItem("gpio_config:"+config_name));
+	setUrlVars("config_name", config_name);
 }
 
 /**
 Get the configuration panel from the local storage. The last configuration stored
 */
-function get_config_panel(){
+function get_config_panel(config_name){
+	if(config_name=="")
+		config_name=getUrlVars()["config_name"];
+	
 	//console.log(localStorage.gpio_config);	
-	if (localStorage.getItem("gpio_config") === null)
+	if (localStorage.getItem("gpio_config:"+config_name) === null)
 		create_first_configuration();
 
 	var rows = localStorage.gpio_config.split("\n");
@@ -116,8 +124,21 @@ function create_first_configuration(){
 	for(i=0;i<=5;i++){
 		data+="A"+i+";A"+i+";digitalout\n";	
 	}
-	localStorage.setItem("gpio_config", data);
+	localStorage.setItem("gpio_config:default", data);
 }
+
+function get_stored_configs(){
+	
+	console.log(localStorage.gpio_config_list);
+	var list=localStorage.gpio_config_list.split(";");
+	console.log("config_name:" + getUrlVars()[config_name]);
+	$.each(list, function( index, value ) {		
+		//if(getUrlVars()[config_name]!="null"}
+		//$('#config_name').append('<option value='+config_name+'>'+config_name+'</option>').attr("selected", "selected");                    
+		$('#config_name').append('<option value='+value+'>'+value+'</option>');
+	});
+}
+
 
 function document_loaded(){
 	
