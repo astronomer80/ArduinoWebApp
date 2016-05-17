@@ -11,7 +11,9 @@ function showgpio(){
 	$('#controlpanelbutton').hide();
 	$('#saveconfigbutton').hide();
 	$('#configpanelbutton').show();
-	localStorage.setItem("default_panel", "showgpio");	
+	localStorage.setItem("default_panel", "showgpio");
+
+	
 	
 	var out="<table class=showgpio_table>";
 	

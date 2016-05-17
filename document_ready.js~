@@ -53,9 +53,7 @@ $(document).ready(function() {
         });
 
 	$('#config_name').click(function(){
-		value=$(this).val();
-		index=$(this).index()
-		setUrlVars("config_name", value);		
+		alert($(this).val());
         });
 		
 	
@@ -142,14 +140,12 @@ function get_stored_configs(){
 	
 	console.log(localStorage.gpio_config_list);
 	var list=localStorage.gpio_config_list.split(";");
-	config_name=getUrlVars()["config_name"];
-	
+	console.log("config_name:" + getUrlVars()[config_name]);
+	ret="";
 	$.each(list, function( index, value ) {		
-		
-		if(config_name==value)			
-			$('#config_name').append('<option selected value='+value+'>'+value+'</option>');                  
-		else
-			$('#config_name').append('<option value='+value+'>'+value+'</option>');
+		//if(getUrlVars()[config_name]!="null"}
+		//$('#config_name').append('<option value='+config_name+'>'+config_name+'</option>').attr("selected", "selected");                    
+		$('#config_name').append('<option value='+value+'>'+value+'</option>');
 		ret=value;
 	});
 
