@@ -104,6 +104,8 @@ function store_config_panel(config_name){
 Get the configuration panel from the local storage. The last configuration stored
 */
 function get_config_panel(config_name){
+	console.log(config_name);
+	//config_name="Test4";
 	if(config_name=="")
 		config_name=getUrlVars()["config_name"];
 	
@@ -114,6 +116,8 @@ function get_config_panel(config_name){
 	}
 
 	var rows = localStorage.getItem("gpio_config:" + config_name).split("\n");
+	
+	console.log(rows);
 	$.each(rows, function( index, value ) {
 		var data = value.split(";");		
 		//console.log(data[1]);		
@@ -143,15 +147,17 @@ function get_stored_configs(){
 	console.log(localStorage.gpio_config_list);
 	var list=localStorage.gpio_config_list.split(";");
 	config_name=getUrlVars()["config_name"];
-	
+	ret="";
 	$.each(list, function( index, value ) {		
-		
-		if(config_name==value)			
-			$('#config_name').append('<option selected value='+value+'>'+value+'</option>');                  
-		else
-			$('#config_name').append('<option value='+value+'>'+value+'</option>');
-		ret=value;
+		if(value!="default"){
+			if(config_name==value)			
+				$('#config_name').append('<option selected value='+value+'>'+value+'</option>');                  
+			else
+				$('#config_name').append('<option value='+value+'>'+value+'</option>');
+			ret=value;
+		}
 	});
+	
 
 	return ret;
 }

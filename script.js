@@ -154,13 +154,14 @@ function configgpio_unowifi(){
 	$('#gpio').html(out);		
 	
 	//Get data from localStorage
-	get_config_panel("default");
+	config_name=getUrlVars()["config_name"]
+	get_config_panel(config_name);
 	
 	$('.gpio_name').change(function(){
-		store_config_panel("default");
+		store_config_panel(config_name);
 	});
 	$('.gpio_type').change(function(){
-		store_config_panel("default");	
+		store_config_panel(config_name);	
 	});
 }
 /**
@@ -321,12 +322,15 @@ function setUrlVars(variable, value) {
 }
 
 function reset_data(){
-	if(confirm("Are you sure?")){
+	if(confirm("Are you sure you want to reset actual configuration?")){
 		create_first_configuration();
 		window.open(window.location.href, '_self');	
 	}
 }
 
+/**
+Save the configuration in the localStorage
+*/
 function save_config(){
 	var config_name=prompt("Enter the name for this configuration", "");
 	if(config_name!=null){
@@ -337,5 +341,17 @@ function save_config(){
          .append('<option value='+config_name+'>'+config_name+'</option>').attr("selected", "selected");;                    
 					
 		store_config_panel(config_name);
+	}
+}
+
+function delete_config(){
+	config_name=getUrlVars()["config_name"];
+	if(confirm("Are you sure you want to delete the configuration '"+config_name+"'?")){
+		list=localStorage.getItem("gpio_config_list");		
+		list=list.replace(config_name, "");
+		list=list.replace(";;", ";");
+		setUrlVars("coinfig_name", "default");
+		console.log(list);
+		localStorage.setItem("gpio_config_list", list);		
 	}
 }
