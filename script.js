@@ -331,11 +331,28 @@ function reset_data(){
 /**
 Save the configuration in the localStorage
 */
-function save_config(){
+function button_save_config(){
 	var config_name=prompt("Enter the name for this configuration", "");
 	if(config_name!=null){
+		
 		if(localStorage.gpio_config_list==="undefined")
 			localStorage.setItem("gpio_config_list","default");
+		
+		//Check if the config exists
+		if(localStorage.gpio_config_list.indexOf(config_name)!=-1){
+			if(confirm("The configuration '"+config_name+"' already exists. Do you want to overwrite?")){
+				list=localStorage.getItem("gpio_config_list");		
+				list=list.replace(config_name, "");
+				list=list.replace(";;", ";");
+				console.log(list);
+				localStorage.setItem("gpio_config_list", list);	
+			}
+				
+			
+		}
+			
+		
+		
 		localStorage.gpio_config_list+=";" + config_name;						
 		$('#config_name')
          .append('<option value='+config_name+'>'+config_name+'</option>').attr("selected", "selected");;                    

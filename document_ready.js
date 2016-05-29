@@ -15,7 +15,7 @@ $(document).ready(function() {
 		$("#arduino_board").val(arduino_board);
 	}
 
-	//Manage how panel show
+	//Manage what panel show
 	if(localStorage.default_panel=="showgpio")
 		showgpio();
 	else
@@ -52,7 +52,7 @@ $(document).ready(function() {
 	    sendCommand(command);
         });
 
-	$('#config_name').click(function(){
+	$('#config_name').blur(function(){
 		value=$(this).val();
 		index=$(this).index()
 		setUrlVars("config_name", value);		
@@ -126,6 +126,11 @@ function get_config_panel(config_name){
 	});	
 }
 
+
+/**
+Create the default configuration
+All digital output
+*/
 function create_first_configuration(){
 	console.log("create_first_configuration");
 	var data="";
@@ -142,6 +147,10 @@ function create_first_configuration(){
 	localStorage.setItem("gpio_config_list","default");
 }
 
+/**
+Read stored configurations from the localstorage
+The config_name combobox will be populated
+*/
 function get_stored_configs(){
 	
 	console.log(localStorage.gpio_config_list);
