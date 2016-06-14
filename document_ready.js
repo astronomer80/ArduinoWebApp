@@ -52,7 +52,7 @@ $(document).ready(function() {
 	    sendCommand(command);
         });
 
-	$('#config_name').blur(function(){
+	$('#config_name').select(function(){
 		value=$(this).val();
 		index=$(this).index()
 		setUrlVars("config_name", value);		
@@ -131,8 +131,8 @@ function get_config_panel(config_name){
 Create the default configuration
 All digital output
 */
-function create_first_configuration(){
-	console.log("create_first_configuration");
+function reset_pin_configuration(){
+	console.log("reset");
 	var data="";
 	//Digital pins	
 	for(i=0;i<=13;i++){
@@ -142,8 +142,14 @@ function create_first_configuration(){
 	//For each Analog PIN
 	for(i=0;i<=5;i++){
 		data+="A"+i+";A"+i+";digitalout\n";	
-	}
+	}	
+	
 	localStorage.setItem("gpio_config:default", data);
+}
+
+function create_first_configuration(){
+	console.log("create_first_configuration");
+	reset_pin_configuration();
 	localStorage.setItem("gpio_config_list","default");
 }
 

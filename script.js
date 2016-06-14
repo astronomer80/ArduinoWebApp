@@ -323,7 +323,7 @@ function setUrlVars(variable, value) {
 
 function reset_data(){
 	if(confirm("Are you sure you want to reset actual configuration?")){
-		create_first_configuration();
+		reset_pin_configuration();
 		window.open(window.location.href, '_self');	
 	}
 }
@@ -339,16 +339,12 @@ function button_save_config(){
 			localStorage.setItem("gpio_config_list","default");
 		
 		//Check if the config exists
-		if(localStorage.gpio_config_list.indexOf(config_name)!=-1){
-			if(confirm("The configuration '"+config_name+"' already exists. Do you want to overwrite?")){
-				list=localStorage.getItem("gpio_config_list");		
-				list=list.replace(config_name, "");
-				list=list.replace(";;", ";");
-				console.log(list);
-				localStorage.setItem("gpio_config_list", list);	
+		if(localStorage.gpio_config_list.indexOf(config_name)){
+			if(confirm("Do you want to overwrite the configuration '"+config_name+"'?")){
+				alert(localStorage.gpio_config_list);
+				localStorage.gpio_config_list=localStorage.gpio_config_list.replace(";" + config_name);
+				alert(localStorage.gpio_config_list);
 			}
-				
-			
 		}
 			
 		
@@ -361,7 +357,7 @@ function button_save_config(){
 	}
 }
 
-function delete_config(){
+function button_delete_config(){
 	config_name=getUrlVars()["config_name"];
 	if(confirm("Are you sure you want to delete the configuration '"+config_name+"'?")){
 		list=localStorage.getItem("gpio_config_list");		
