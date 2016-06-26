@@ -10,6 +10,8 @@ function showgpio(){
 	//Manage buttons
 	$('#controlpanelbutton').hide();
 	$('#saveconfigbutton').hide();
+	$('#deleteconfigbutton').hide();
+	$('#sendconfigbutton').show();
 	$('#configpanelbutton').show();
 	localStorage.setItem("default_panel", "showgpio");	
 	
@@ -122,6 +124,8 @@ Create the configuration panel
 function configgpio_unowifi(){
 	$('#controlpanelbutton').show();
 	$('#saveconfigbutton').show();
+	$('#sendconfigbutton').show();
+	$('#deleteconfigbutton').show();
 	$('#configpanelbutton').hide();
 	localStorage.setItem("default_panel", "configgpio_unowifi");
 	
